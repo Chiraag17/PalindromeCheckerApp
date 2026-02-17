@@ -2,21 +2,28 @@ import java.util.Scanner;
 
 /**
  * Main class - PalindromeCheckerApp
- * Description: Checks for palindromes by creating a reversed string.
+ * Description: Checks for palindromes using a char array and two-pointer approach.
  * @author Developer
- * @version 1.1
+ * @version 1.2
  */
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your input: ");
         String input = sc.nextLine();
-        String reversed = "";
-        for (int i = input.length() - 1; i >= 0; i--) {
-
-            reversed += input.charAt(i);
+        char[] charArray = input.toCharArray();
+        boolean isPalindrome = true;
+        int left = 0;
+        int right = charArray.length - 1;
+        while (left < right) {
+            if (Character.toLowerCase(charArray[left]) != Character.toLowerCase(charArray[right])) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
         }
-        if (input.equalsIgnoreCase(reversed)) {
+        if (isPalindrome) {
             System.out.println("\"" + input + "\" True");
         } else {
             System.out.println("\"" + input + "\" false");
