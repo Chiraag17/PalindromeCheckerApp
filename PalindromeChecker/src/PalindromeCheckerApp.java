@@ -1,46 +1,63 @@
 import java.util.Scanner;
-import java.util.Deque;
-import java.util.ArrayDeque;
 
 /**
  * Main class - PalindromeCheckerApp
- * Description: Checks for palindromes using a Deque (Double-Ended Queue).
+ * Description: Checks for palindromes using a Singly Linked List and middle reversal.
  * @author Developer
- * @version 1.5
+ * @version 1.6
  */
+class Node {
+    char data;
+    Node next;
+    Node(char data) { this.data = data; }
+}
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your input: ");
         String input = sc.nextLine();
+        if (input.isEmpty()) return;
 
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for (int i = 0; i < input.length(); i++) {
-            deque.addLast(input.charAt(i));
+        Node head = new Node(input.charAt(0));
+        Node current = head;
+        for (int i = 1; i < input.length(); i++) {
+            current.next = new Node(input.charAt(i));
+            current = current.next;
         }
 
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node secondHalf = reverseList(slow);
+        Node firstHalf = head;
+        Node secondHalfCopy = secondHalf;
+
         boolean isPalindrome = true;
-
-
-        while (deque.size() > 1) {
-
-            char first = Character.toLowerCase(deque.removeFirst());
-            char last = Character.toLowerCase(deque.removeLast());
-
-            if (first != last) {
+        while (secondHalf != null) {
+            if (Character.toLowerCase(firstHalf.data) != Character.toLowerCase(secondHalf.data)) {
                 isPalindrome = false;
                 break;
             }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
 
-        // Flow: Print result
-        if (isPalindrome) {
-            System.out.println("\"" + input + "\" True");
-        } else {
-            System.out.println("\"" + input + "\" false");
-        }
-
+        System.out.println("\"" + input + "\" " + isPalindrome);
         sc.close();
+    }
+
+    private static Node reverseList(Node head) {
+        Node prev = null, current = head, next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
     }
 }
