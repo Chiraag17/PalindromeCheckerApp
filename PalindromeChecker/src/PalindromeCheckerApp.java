@@ -1,38 +1,26 @@
-import java.util.Scanner; // Required import for user input
+import java.util.Scanner;
 
+/**
+ * Main class - PalindromeCheckerApp
+ * Description: Checks for palindromes by creating a reversed string.
+ * @author Developer
+ * @version 1.1
+ */
 public class PalindromeCheckerApp {
-    /**
-     * Main class - PalindromeCheckerApp
-     * Description:
-     * This class represents the entry point of the
-     * Palindrome Checker Management system.
-     * @author Developer
-     * @version 1.1
-     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your input: ");
         String input = sc.nextLine();
+        String reversed = "";
+        for (int i = input.length() - 1; i >= 0; i--) {
 
-        boolean isPalindrome = true;
-        int len = input.length();
-
-
-        for (int i = 0; i < len / 2; i++) {
-
-            if (input.charAt(i) != input.charAt(len - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+            reversed += input.charAt(i);
         }
-
-
-        if (isPalindrome) {
+        if (input.equalsIgnoreCase(reversed)) {
             System.out.println("\"" + input + "\" True");
         } else {
             System.out.println("\"" + input + "\" false");
         }
-
         sc.close();
     }
 }
