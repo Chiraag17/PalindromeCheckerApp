@@ -1,33 +1,38 @@
 import java.util.Scanner;
-
+import java.util.Stack;
 /**
  * Main class - PalindromeCheckerApp
- * Description: Checks for palindromes using a char array and two-pointer approach.
+ * Description: Checks for palindromes using a Stack (LIFO principle).
  * @author Developer
- * @version 1.2
+ * @version 1.3
  */
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your input: ");
         String input = sc.nextLine();
-        char[] charArray = input.toCharArray();
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
         boolean isPalindrome = true;
-        int left = 0;
-        int right = charArray.length - 1;
-        while (left < right) {
-            if (Character.toLowerCase(charArray[left]) != Character.toLowerCase(charArray[right])) {
+
+        for (int i = 0; i < input.length(); i++) {
+            char originalChar = input.charAt(i);
+            char reversedChar = stack.pop();
+
+            if (Character.toLowerCase(originalChar) != Character.toLowerCase(reversedChar)) {
                 isPalindrome = false;
                 break;
             }
-            left++;
-            right--;
         }
         if (isPalindrome) {
             System.out.println("\"" + input + "\" True");
         } else {
             System.out.println("\"" + input + "\" false");
         }
+
         sc.close();
     }
 }
