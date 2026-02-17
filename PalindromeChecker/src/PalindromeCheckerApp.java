@@ -1,41 +1,40 @@
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 /**
  * Main class - PalindromeCheckerApp
- * Description: Checks for palindromes by comparing FIFO (Queue) vs LIFO (Stack).
+ * Description: Checks for palindromes using a Deque (Double-Ended Queue).
  * @author Developer
- * @version 1.4
+ * @version 1.5
  */
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your input: ");
-        S
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
+        String input = sc.nextLine();
+
+        Deque<Character> deque = new ArrayDeque<>();
 
         for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            stack.push(c);
-            queue.add(c);
+            deque.addLast(input.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        while (!queue.isEmpty()) {
 
-            char fromQueue = Character.toLowerCase(queue.remove());
-            char fromStack = Character.toLowerCase(stack.pop());
+        while (deque.size() > 1) {
 
-            if (fromQueue != fromStack) {
+            char first = Character.toLowerCase(deque.removeFirst());
+            char last = Character.toLowerCase(deque.removeLast());
+
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }
         }
 
+        // Flow: Print result
         if (isPalindrome) {
             System.out.println("\"" + input + "\" True");
         } else {
