@@ -23,6 +23,9 @@ public class PalindromeCheckerApp {
             queue.add(c);
         }
 
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
         boolean isPalindrome = true;
 
         while (!queue.isEmpty()) {
