@@ -67,10 +67,6 @@ public class PalindromeCheckerApp {
 interface PalindromeStrategy {
     boolean checkPalindrome(String input);
 }
-
-/**
- * CLASS - StackStrategy
- */
 class StackStrategy implements PalindromeStrategy {
     @Override
     public boolean checkPalindrome(String input) {
